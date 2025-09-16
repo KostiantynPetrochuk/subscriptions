@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: subscriptions
+    env: node
+    plan: free
+    repo: https://github.com/KostiantynPetrochuk/subscriptions
+    branch: main
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
