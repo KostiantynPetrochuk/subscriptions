@@ -21,6 +21,11 @@ fastify.post('/log', async (request, reply) => {
     return { status: 'ok' };
 });
 
+fastify.post('/error', async (request, reply) => {
+    console.log('Received error:',request.body)
+    return { status: 'ok' };
+});
+
 
 fastify.post('/webhook/apple', async (request, reply) => {
     console.log('Received apple webhook:', request.body);
