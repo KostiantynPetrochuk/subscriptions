@@ -17,6 +17,12 @@ fastify.post('/purchase', async (request, reply) => {
     return { status: 'ok' };
 });
 
+// POST /purchase - клієнт надсилає receipt після першої покупки
+fastify.post('/log', async (request, reply) => {
+    consnole.log(request.body)
+    return { status: 'ok' };
+});
+
 // POST /webhook/renew - Apple повідомляє про продовження підписки
 fastify.post('/webhook/renew', async (request, reply) => {
     console.log('Received renew webhook:', request.body);
