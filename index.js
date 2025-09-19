@@ -19,7 +19,7 @@ fastify.post('/purchase', async (request, reply) => {
 
 // POST /purchase - клієнт надсилає receipt після першої покупки
 fastify.post('/log', async (request, reply) => {
-    consnole.log(request.body)
+    console.log(request.body)
     return { status: 'ok' };
 });
 
