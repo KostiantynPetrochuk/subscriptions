@@ -1,6 +1,6 @@
 const Fastify = require('fastify');
 
-const fastify = Fastify({ logger: true });
+const fastify = Fastify({ logger: false });
 const PORT = process.env.PORT || 3000;
 
 fastify.post('/purchase', async (request, reply) => {
