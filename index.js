@@ -17,7 +17,7 @@ fastify.post('/purchase', async (request, reply) => {
 
 
 fastify.post('/log', async (request, reply) => {
-    console.log(request.body)
+    console.log('Received log:',request.body)
     return { status: 'ok' };
 });
 
