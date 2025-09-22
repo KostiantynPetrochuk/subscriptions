@@ -1,12 +1,12 @@
 const Fastify = require('fastify');
 const { jwtVerify, createRemoteJWKSet } = require("jose");
-// const APPLE_JWKS_URL = "https://api.storekit.itunes.apple.com/inApps/v1/jwsKeys";
-const APPLE_JWKS_URL = "https://api.storekit-sandbox.itunes.apple.com/inApps/v1/jwsKeys"
-const JWKS = createRemoteJWKSet(new URL(APPLE_JWKS_URL));
-
 
 const fastify = Fastify({ logger: false });
 const PORT = process.env.PORT || 3000;
+
+// const APPLE_JWKS_URL = "https://api.storekit.itunes.apple.com/inApps/v1/jwsKeys";
+const JWKS_URL = "https://api.storekit-sandbox.itunes.apple.com/inApps/v1/jwsKeys";
+const JWKS = createRemoteJWKSet(new URL(JWKS_URL));
 
 fastify.post('/purchase', async (request, reply) => {
   const { receipt, userId } = request.body;
@@ -51,16 +51,12 @@ fastify.listen({ port: PORT, host: '0.0.0.0' })
     process.exit(1);
   });
 
-
 async function verifyAndDecode(signedPayload) {
   try {
-    // Перевірка підпису і декодування
     const { payload, protectedHeader } = await jwtVerify(signedPayload, JWKS);
-
     console.log("✅ Verified signature!");
     console.log("Header:", protectedHeader);
     console.log("Payload:", payload);
-
     return payload;
   } catch (err) {
     console.error("❌ Verification failed:", err.message);
