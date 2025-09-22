@@ -34,7 +34,12 @@ fastify.post('/error', async (request, reply) => {
 
 fastify.post('/webhook/apple', async (request, reply) => {
   console.log('Received apple webhook:', request.body);
-  verifyAndDecode(request.body.signedPayload)
+  try {
+    const decoded = decodeJWS(request.body.signedPayload);
+    console.log("Decoded JWS:", decoded);
+  } catch (err) {
+    console.error("❌ Decoding failed:", err.message);
+  }
   return { status: 'ok' };
 });
 
@@ -51,15 +56,10 @@ fastify.listen({ port: PORT, host: '0.0.0.0' })
     process.exit(1);
   });
 
-async function verifyAndDecode(signedPayload) {
-  try {
-    const { payload, protectedHeader } = await jwtVerify(signedPayload, JWKS);
-    console.log("✅ Verified signature!");
-    console.log("Header:", protectedHeader);
-    console.log("Payload:", payload);
-    return payload;
-  } catch (err) {
-    console.error("❌ Verification failed:", err.message);
-    throw err;
-  }
+// просто декодуємо JWS, не перевіряючи підпис
+function decodeJWS(signedPayload) {
+  // jsonwebtoken decode не перевіряє підпис без ключа
+  const decoded = jwt.decode(signedPayload, { complete: true });
+  // decoded.header, decoded.payload
+  return decoded;
 }
