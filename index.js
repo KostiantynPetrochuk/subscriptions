@@ -1,4 +1,5 @@
 const Fastify = require('fastify');
+const jwt = require('jsonwebtoken');
 
 const fastify = Fastify({ logger: false });
 const PORT = process.env.PORT || 3000;
