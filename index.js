@@ -36,8 +36,8 @@ fastify.post('/webhook/apple', async (request, reply) => {
   try {
     const decoded = decodeJWS(request.body.signedPayload);
     console.log("Decoded JWS:", decoded);
-    const transactionInfo = decodeJWS(payload.data.signedTransactionInfo);
-    const renewalInfo = decodeJWS(payload.data.signedRenewalInfo);
+    const transactionInfo = decodeJWS(decoded.payload.data.signedTransactionInfo);
+    const renewalInfo = decodeJWS(decoded.payload.data.signedRenewalInfo);
     console.log("Decoded transactionInfo:", transactionInfo);
     console.log("Decoded renewalInfo:", renewalInfo);
   } catch (err) {
