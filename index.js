@@ -1,12 +1,10 @@
 const Fastify = require('fastify');
-const { jwtVerify, createRemoteJWKSet } = require("jose");
 
 const fastify = Fastify({ logger: false });
 const PORT = process.env.PORT || 3000;
 
 // const APPLE_JWKS_URL = "https://api.storekit.itunes.apple.com/inApps/v1/jwsKeys";
-const JWKS_URL = "https://api.storekit-sandbox.itunes.apple.com/inApps/v1/jwsKeys";
-const JWKS = createRemoteJWKSet(new URL(JWKS_URL));
+// const JWKS_URL = "https://api.storekit-sandbox.itunes.apple.com/inApps/v1/jwsKeys";
 
 fastify.post('/purchase', async (request, reply) => {
   const { receipt, userId } = request.body;
