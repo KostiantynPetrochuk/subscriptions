@@ -49,6 +49,9 @@ fastify.post('/webhook/apple', async (request, reply) => {
 
 fastify.post('/webhook/google', async (request, reply) => {
   console.log('Received google webhook:', request.body);
+  const dataJson = Buffer.from(request.body.message.data, 'base64').toString('utf-8');
+  const payload = JSON.parse(dataJson);
+  console.log({ payload });
   return { status: 'ok' };
 });
 
